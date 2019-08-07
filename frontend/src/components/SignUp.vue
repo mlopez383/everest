@@ -3,7 +3,7 @@
     <b-modal 
       id="modal-signup"
       ref="signupModal"
-      title="Log In"
+      title="Sign Up"
       @show="resetModal"
       @hidden="resetModal"
     >
@@ -79,6 +79,7 @@
 </template>
 
 <script>
+import store from '../store/config';
 export default {
   name: "SignUp",
   data() {
@@ -131,6 +132,10 @@ export default {
       this.$nextTick(() => {
         this.$refs.signupModal.hide();
       });
+    },
+    saveUser() {
+      /*TODO: implement this*/
+      console.log(store.state.API_LOCATION);
     }
   }
 };
