@@ -19,9 +19,9 @@ public class UserController {
     String login(@PathVariable String username, @PathVariable String password) {
         /*TODO: Implement this using the database*/
         if (username.equals("example@gmail.com") && password.equals("123456")) {
-            return "{\"response\" : \"success\"}";
+            return "{\"result\" : \"success\"}";
         } else {
-            return "{\"response\" : \"failed\"}";
+            return "{\"result\" : \"failed\"}";
         }
     }
 
@@ -33,7 +33,7 @@ public class UserController {
     String signup(@RequestBody String body){
         /*TODO: Implement this using the database*/
         System.out.println(body);
-        return "{\"response\" : \"created\"}";
+        return "{\"result\" : \"created\"}";
     }
 
     @RequestMapping (value = "", method = RequestMethod.GET)

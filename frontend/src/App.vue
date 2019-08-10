@@ -29,4 +29,7 @@ export default {
 #app {
     text-align: center;
 }
+.hideElement{
+    display: none;
+}
 </style>
