@@ -5,11 +5,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @RestController
 @RequestMapping("user")
 public class UserController {
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping (
             value = "login/{username}/{password}",
             method = RequestMethod.GET,
@@ -24,7 +26,7 @@ public class UserController {
             return "{\"result\" : \"failed\"}";
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:8080")
     @RequestMapping (value = "signup", method = RequestMethod.POST,
             consumes = {"application/JSON"},
             produces = {"application/JSON"}
