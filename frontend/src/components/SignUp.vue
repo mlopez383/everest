@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import store from "../store/config";
 export default {
     name: "SignUp",
@@ -124,12 +125,22 @@ export default {
             }
 
             this.$nextTick(() => {
-                this.$refs.signupModal.hide();
+                axios
+                    .post(store.state.API_LOCATION + "/user/signup/", {
+                        name: this.name,
+                        email: this.email,
+                        passw: this.passw,
+                    })
+                    .then((response) => (this.evaluateSignUp(response)))
+                    .catch((e) => (console.log("POST /user/signup cannot be accessed")));
             });
         },
-        saveUser() {
-            /*TODO: implement this*/
-            console.log(store.state.API_LOCATION);
+        evaluateSignUp(response) {
+            if (response.data.result == "success") {
+                this.$refs.signupModal.hide();
+            }else{
+                console.log("FAILED SIGN UP");
+            }
         }
     }
 };
