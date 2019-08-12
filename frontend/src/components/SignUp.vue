@@ -129,7 +129,7 @@ export default {
                     .post(store.state.API_LOCATION + "/user/signup/", {
                         fullname: this.fullname,
                         email: this.email,
-                        pass_word: this.pass_word,
+                        upassword: this.pass_word,
                     })
                     .then((response) => (this.evaluateSignUp(response)))
                     .catch((e) => (console.log("POST /user/signup cannot be accessed")));

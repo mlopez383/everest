@@ -1,4 +1,6 @@
 package com.rental.advertisements;
+
+import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,20 +21,22 @@ public class UserController {
         this.repository = repository;
     }
 
+
     @RequestMapping (
-            value = "login/{username}/{password}",
+            value = "login/{username}/{upassword}",
             method = RequestMethod.GET,
             produces = {"application/JSON"}
     )
     @ResponseBody
-    String login(@PathVariable String username, @PathVariable String password) {
-        /*TODO: Implement this using the database*/
-        if (username.equals("example@gmail.com") && password.equals("123456")) {
+    String login(@PathVariable String username, @PathVariable String upassword) {
+        List<User> list = this.repository.findByEmailAndUpassword(username, upassword);
+        if (list.size() > 0) {
             return "{\"result\" : \"success\"}";
-        } else {
+        }else{
             return "{\"result\" : \"failed\"}";
         }
     }
+
 
     @RequestMapping (value = "signup", method = RequestMethod.POST,
             consumes = {"application/JSON"},
@@ -40,7 +44,7 @@ public class UserController {
     )
     @ResponseBody
     String signup(@RequestBody User newUser){
-        repository.save(newUser);
+        this.repository.save(newUser);
         return "{\"result\" : \"created\"}";
     }
 
