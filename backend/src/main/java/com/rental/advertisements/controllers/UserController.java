@@ -9,9 +9,16 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("user")
 public class UserController {
-    @CrossOrigin(origins = "http://localhost:8080")
+
+    private final UserRepository repository;
+
+    UserController(UserRepository repository) {
+        this.repository = repository;
+    }
+
     @RequestMapping (
             value = "login/{username}/{password}",
             method = RequestMethod.GET,
@@ -26,15 +33,14 @@ public class UserController {
             return "{\"result\" : \"failed\"}";
         }
     }
-    @CrossOrigin(origins = "http://localhost:8080")
+
     @RequestMapping (value = "signup", method = RequestMethod.POST,
             consumes = {"application/JSON"},
             produces = {"application/JSON"}
     )
     @ResponseBody
-    String signup(@RequestBody String body){
-        /*TODO: Implement this using the database*/
-        System.out.println(body);
+    String signup(@RequestBody User newUser){
+        repository.save(newUser);
         return "{\"result\" : \"created\"}";
     }
 

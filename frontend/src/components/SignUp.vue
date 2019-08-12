@@ -9,16 +9,16 @@
         >
         <form @submit.stop.prevent="handleSubmit">
             <b-form-group
-                :state="nameState"
+                :state="fullnameState"
                 label="Name"
-                label-for="name-input"
+                label-for="fullname-input"
                 invalid-feedback="Name is required"
             >
                 <b-form-input
-                    id="name-input"
-                    ref="nameinput"
-                    v-model="name" 
-                    :state="nameState"
+                    id="fullname-input"
+                    ref="fullnameinput"
+                    v-model="fullname"
+                    :state="fullnameState"
                     required
                 ></b-form-input>
             </b-form-group>
@@ -45,7 +45,7 @@
                 <b-form-input
                     id="password-input"
                     ref="passwordinput"
-                    v-model="passw"
+                    v-model="pass_word"
                     :state="passwordState"
                     required
                 ></b-form-input>
@@ -59,7 +59,7 @@
                 <b-form-input
                     id="password2-input"
                     ref="password2input"
-                    v-model="passw2"
+                    v-model="pass_word2"
                     :state="password2State"
                     required
                 ></b-form-input>
@@ -79,20 +79,20 @@ export default {
     name: "SignUp",
     data() {
         return {
-            name: "",
-            nameState: null,
+            fullname: "",
+            fullnameState: null,
             email: "",
             emailState: null,
-            passw: "",
+            pass_word: "",
             passwordState: null,
-            passw2: "",
+            pass_word2: "",
             password2State: null
         };
     },
     methods: {
         checkFormValidity() {
-            const validName = this.$refs.nameinput.checkValidity();
-            this.nameState = validName ? "valid" : "invalid";
+            const validName = this.$refs.fullnameinput.checkValidity();
+            this.fullnameState = validName ? "valid" : "invalid";
 
             const validEmail = this.$refs.emailinput.checkValidity();
             this.emailState = validEmail ? "valid" : "invalid";
@@ -106,13 +106,13 @@ export default {
             return validName & validEmail & validPassword & validPassword2;
         },
         resetModal() {
-            this.name = "";
-            this.nameState = null;
+            this.fullname = "";
+            this.fullnameState = null;
             this.email = "";
             this.emailState = null;
-            this.passw = "";
+            this.pass_word = "";
             this.passwordState = null;
-            this.passw2 = "";
+            this.pass_word2 = "";
             this.password2State = null;
         },
         handleOk(bvModalEvt) {
@@ -127,9 +127,9 @@ export default {
             this.$nextTick(() => {
                 axios
                     .post(store.state.API_LOCATION + "/user/signup/", {
-                        name: this.name,
+                        fullname: this.fullname,
                         email: this.email,
-                        passw: this.passw,
+                        pass_word: this.pass_word,
                     })
                     .then((response) => (this.evaluateSignUp(response)))
                     .catch((e) => (console.log("POST /user/signup cannot be accessed")));
